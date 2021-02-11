@@ -1,6 +1,5 @@
 import os 
 
-
 def data_preprocess(images_path, masks_path):
 
     _, _, image_files = next(os.walk(images_path))
@@ -25,16 +24,5 @@ def data_preprocess(images_path, masks_path):
 
 
     return image_files, mask_files
-
-
-
-# images, masks = data_preprocess("./fake/", "./masks/")
-
-# files = os.listdir("fake/")
-
-# print(images[0])
-# print(masks[0])
-# print(files)
-# print(images)
 
 
