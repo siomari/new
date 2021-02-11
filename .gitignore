@@ -2,3 +2,5 @@ fake/
 masks/
 .vscode/
 __pycache__/
+image.png
+mask.png
