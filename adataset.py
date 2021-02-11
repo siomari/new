@@ -1,16 +1,15 @@
 from utilities import data_preprocess
 from torch.utils.data import Dataset, DataLoader, Subset
 from PIL import Image
-from skimage import io, transform
+from skimage import io
 from sklearn.model_selection import train_test_split
 
 
-def train_val_dataset(dataset, val_split = 0.20):
+def train_val_dataset(dataset, val_split = None):
     train_idx, val_idx = train_test_split(list(range(len(dataset))), test_size=val_split)
-    datasets={}
-    datasets['train'] = Subset(dataset, train_idx)
-    datasets['val'] = Subset(dataset, val_idx)
-    return datasets
+    train_data = Subset(dataset, train_idx)
+    val_data = Subset(dataset, val_idx)
+    return train, val
 
 class CustomDataset(Dataset):
     def __init__(self, images_path, masks_path, transform = None):

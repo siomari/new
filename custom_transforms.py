@@ -3,7 +3,6 @@ from torchvision import transforms, utils
 from skimage import io, transform
 import adataset
 from PIL import Image
-import matplotlib.pyplot as plt
 import numpy as np
 
 class Rescale(object):
@@ -30,13 +29,13 @@ class Rescale(object):
         return {'image': img, 'mask': msk}
 
 
-class ToTensor(object):
-    def __call__(self,data):
-        image, mask = data['image'], data['mask']
+# class ToTensor(object):
+#     def __call__(self, data):
+#         image, mask = data['image'], data['mask']
 
-        image = image.transpose((2,0,1))
-        return {'image':torch.from_numpy(image), 
-                'mask': torch.from_numpy(mask)}
+#         image = image.transpose((2,0,1))
+#         return {'image':torch.from_numpy(image), 
+#                 'mask': torch.from_numpy(mask)}
 
 
 
