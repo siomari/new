@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn 
-import torch.nn.functional as F 
 
 
 class LSTM_CNN(nn.Module):
@@ -14,8 +13,8 @@ class LSTM_CNN(nn.Module):
         self.conv = nn.Conv2d(64, 16, 3)
 
 
-    def forward(self, inputs):
-        lstm_output, _ = self.lstm(inputs)
+    def forward(self, x):
+        lstm_output, _ = self.lstm(x)
         out = self.conv(lstm_output)
         return out
 
@@ -67,16 +66,24 @@ class Encoder(nn.Module):
         return x
 
 class Decoder(nn.Module):
-    def __init__(self):
+    def __init__(self, modelA, modelB):
         super(Decoder, self).__init__()
 
+        self.modelA = modelA
+        self.modelB = modelB
         self.conv1 = nn.Conv2d(16, 64, 3)
         self.bn1 = nn.BatchNorm2d(64)
         self.conv2 = nn.Conv2d(64, 16, 3)
         self.bn2 = nn.BatchNorm2d(16)
         self.softmax = nn.Softmax()
 
-    def forward(self, x):
+    def forward(self, x1, x2):
+
+        x1 = self.modelA(x1)
+        x2 = self.modelB(x2)
+
+        x = torch.cat((x1, x2), dim=1)
+
         x = self.conv1(x)
         x = self.bn1(x)
         x = self.conv2(x)

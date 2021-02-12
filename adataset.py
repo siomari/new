@@ -5,7 +5,7 @@ from skimage import io
 from sklearn.model_selection import train_test_split
 from skimage import io, transform
 from torchvision import transforms, utils
-
+import numpy as np
 
 
 def train_val_dataset(dataset, val_split = None):
@@ -37,6 +37,8 @@ class CustomDataset(Dataset):
 
         msk = transform.resize(mask, (nheight, nwidth))
 
+        img = img.astype(np.float32)
+        msk = msk.astype(np.float32)
         img = transforms.functional.to_tensor(img)
         msk = transforms.functional.to_tensor(msk)
 
