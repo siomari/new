@@ -10,7 +10,7 @@ class LSTM_CNN(nn.Module):
         self.hidden_dim = hidden_dim
         self.num_layers = num_layers
         self.lstm = nn.LSTM(self.input_size, self.hidden_dim, num_layers = self.num_layers)
-        self.conv = nn.Conv2d(64, 16, 3)
+        self.conv = nn.Conv2d(3, 16, 3)
 
 
     def forward(self, x):
@@ -24,15 +24,15 @@ class Encoder(nn.Module):
         super(Encoder, self).__init__()
 
         self.block1 = nn.Sequential(
-            nn.Conv2d(256, 128, 3),
+            nn.Conv2d(3, 256, 3),
             nn.BatchNorm2d(128),
             nn.ReLU())
         self.block2 = nn.Sequential(
-            nn.Conv2d(128, 64, 3),
+            nn.Conv2d(256, 128, 3),
             nn.BatchNorm2d(64),
             nn.ReLU())
         self.block3 = nn.Sequential(
-            nn.Conv2d(64, 32, 3),
+            nn.Conv2d(128, 32, 3),
             nn.BatchNorm2d(32),
             nn.ReLU())
         self.block4 = nn.Sequential(
@@ -84,7 +84,7 @@ class Decoder(nn.Module):
 
         x = torch.cat((x1, x2), dim=1)
 
-        x = self.conv1(x)
+        x = self.conv1(x1)
         x = self.bn1(x)
         x = self.conv2(x)
         x = self.bn2(x)
