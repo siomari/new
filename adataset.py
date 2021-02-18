@@ -37,6 +37,9 @@ class CustomDataset(Dataset):
 
         msk = transform.resize(mask, (nheight, nwidth))
 
+        norm_img = transforms.Normalize((0.5,0.5,0.5),(0.5,0.5,0.5))
+        norm_mask = transforms.Normalize([0.5],[0.5])
+
         img = img.astype(np.float32)
         msk = msk.astype(np.float32)
         img = transforms.functional.to_tensor(img)
@@ -51,6 +54,6 @@ class CustomDataset(Dataset):
 
         image = io.imread(img_name)
         mask = io.imread(mask_name)
-        x, y = self.transform(image, mask, [1000,1000])
+        x, y = self.transform(image, mask, [256,256])
         return x, y
 
