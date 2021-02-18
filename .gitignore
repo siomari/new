@@ -1,3 +1,4 @@
+.gitignore
 fake/
 masks/
 .vscode/
@@ -5,9 +6,5 @@ __pycache__/
 image.png
 mask.png
 .ipynb_checkpoints/
-.gitignore
-adataset.py
 conv.py
-netwotk.py
-training.py
-utilities.py
+code/
